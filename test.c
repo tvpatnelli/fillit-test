@@ -1,5 +1,4 @@
 #include "fillit.h"
-#include "get_next_line.h"
 
 
 static void		buftotab(char tetris[28][4][4], char buf[545], int buflen)
@@ -32,7 +31,7 @@ static void		buftotab(char tetris[28][4][4], char buf[545], int buflen)
 	}
 }
 
-*int		terminos_valide(char **str)
+static int		terminos_valide(char **str)
 {
 	int i;
 	int j;
@@ -64,52 +63,34 @@ static void		buftotab(char tetris[28][4][4], char buf[545], int buflen)
 	return (1);
 }
 
-int		bloc_valid(**str)
+static int		check_fusion_bloc(char **str)
 {
 	int i;
-	int j;
-
-	i = 0;
-
-	while(*str)
-	{
-		j = 0;
-		while (str[i][j] != '#' && str[i][j] != '\n')
-			j++;
-		check_fusion_bloc(str[i][j]);
-
-	}
-}
-
-int		check_fusion_bloc(**str, int i ,int j)
-{
-	int fus_Y;
+	int j
+		int fus_Y;
 	int fus_X;
-	int y_H;
-	int y_B;
-	int x_G;
-	int x_D;
 
 	fus_Y = 0;
 	fus_X = 0;
-	y_H = str[i - 1][j];
-	y_B = str[i + 1][j];
-	x_G = str[i][j - 1];
-	x_D = str[i][j + 1];
-	while ( str[i]!= '\n')
+	i = 0;
+	while ( str[i][0] != '\n')
 	{
-		while (str [j] != '\n')
-		{
-			if (y_H == '#')
-				fus_Y++;
-			if ( y_B == '#')
-				fus_Y++;
-			if (x_G == '#')
-				fus_X++;
-			if (x_D == '#')
-				fus_X++;
-			j++;
-		}
+		j = 0
+			while (str[i][j] != '\n')
+			{
+				if str[i][j] == '#'
+				{
+					if (i - 1 >=0 && str[i -1][j] == '#')
+						fus_Y++;
+					if (i + 1 < 4 && str[i + 1][j] == '#')
+						fus_Y++;
+					if (j - 1 >=0 && str[i][j - 1] == '#')
+						fus_X++;
+					if (j + 1 < 4 && str[i][j + 1] == '#')
+						fus_X++;
+				}
+				j++;
+			}
 		i++;
 	}
 	if( (fus_Y == 0 && fus_X == 6) || (fus_Y == 6 && fus_X == 0))
@@ -119,7 +100,7 @@ int		check_fusion_bloc(**str, int i ,int j)
 	return (error);
 }
 
-int test(char buf[544])
+int parser(char buf[544])
 {
 	return (0);
 }
